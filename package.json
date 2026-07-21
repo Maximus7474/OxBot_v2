@@ -1,0 +1,29 @@
+{
+  "name": "oxbot",
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "nub watch src/index.ts",
+    "start": "nub src/index.ts",
+    "typecheck": "nubx tsc --noEmit",
+    "format": "nubx prettier --write \"src/**/*.ts\"",
+    "lint": "nubx oxlint src"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "oxlint": "^1.74.0",
+    "prettier": "^3.9.6",
+    "typescript": "^7.0.2"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "nub",
+      "version": "^0.4.2",
+      "onFail": "warn"
+    }
+  },
+  "dependencies": {
+    "discord.js": "^14.27.0"
+  }
+}
