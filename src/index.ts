@@ -1,6 +1,8 @@
-import { env } from '@/env';
+import { createClient } from '@/client';
+import { loadCommands } from '@/handlers/commands';
+import { loadEvents } from '@/handlers/events';
 
-const packageManager: string = 'NubJS';
+const client = createClient();
 
-console.log(`Hello via ${packageManager}!`);
-console.log(`NODE_ENV: ${env.NODE_ENV}`);
+await loadCommands(client);
+await loadEvents(client);
