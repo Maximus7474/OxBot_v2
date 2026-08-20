@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import { dirname, join } from 'path';
+import { dirname, join, relative } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { logger } from '@/utils/logger';
 import type { BotClient } from '@/client';
@@ -10,12 +10,18 @@ import { REST, Routes } from 'discord.js';
 export const loadCommands = async (client: BotClient): Promise<void> => {
   const currentDir = dirname(fileURLToPath(import.meta.url));
   const dir = join(currentDir, '..', 'commands');
-  const files = readdirSync(dir).filter((f) => f.endsWith('.ts'));
 
-  for (const file of files) {
-    const filePath = join(dir, file);
+  const entries = readdirSync(dir, { recursive: true }) as string[];
+
+  const files = entries
+    .filter((file) => file.endsWith('.ts') || file.endsWith('.js'))
+    .map((file) => [file, join(dir, file)]);
+
+  for (const entry of files) {
+    const [file, path] = entry;
+
     try {
-      const mod = await import(pathToFileURL(filePath).href);
+      const mod = await import(pathToFileURL(path).href);
       const command: Command = mod.default;
 
       if (!command?.data || !command?.execute) {
