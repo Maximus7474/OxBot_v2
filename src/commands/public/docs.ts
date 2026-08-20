@@ -31,7 +31,7 @@ export default {
           .setTitle(`Docs for: ${resource}`)
           .setColor('#c5a279')
           .setDescription(`Please read the documentation thoroughly and carefully.\n\n> :link: ${url}`)
-          .setThumbnail(client.user.displayAvatarURL({ size: 128, extension: 'jpeg' })),
+          .setThumbnail(client.user!.displayAvatarURL({ size: 128, extension: 'jpeg' })),
       ],
     });
   },

@@ -56,7 +56,9 @@ export default {
       await checkUserIsLogged({ client, user: offender });
       await checkUserIsLogged({ client, user: author });
 
-      await offenderMember.timeout(seconds, reason);
+      if (offenderMember) {
+        await offenderMember.timeout(seconds, reason);
+      }
 
       await db.insert(warnsTable).values({
         reason: reason,

@@ -5,6 +5,6 @@ export default {
   name: 'clientReady',
   once: true,
   execute: async (client) => {
-    logger.info(`[Client] ✅ ${client.user.username} has logged in coxrectly.`);
+    logger.info(`[Client] ✅ ${client.user?.username} has logged in coxrectly.`);
   },
 } satisfies BotEvent<'clientReady'>;
