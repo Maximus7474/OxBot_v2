@@ -1,5 +1,5 @@
 import { readdirSync } from 'fs';
-import { dirname, join, relative } from 'path';
+import { dirname, join } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { logger } from '@/utils/logger';
 import type { BotClient } from '@/client';
@@ -41,30 +41,4 @@ export const loadCommands = async (client: BotClient): Promise<void> => {
     }
   }
   logger.info(`[Commands] 📝 Total commands loaded: ${client.commands.size}`);
-
-  client.on('clientReady', async ({ user }) => {
-    const rest = new REST({ version: '10' }).setToken(env.TOKEN);
-    const commandData = Array.from(client.commands.values()).map((command) => command.data.toJSON());
-
-    if (env.NODE_ENV === 'development') {
-      await rest.put(Routes.applicationGuildCommands(env.CLIENT_ID, env.GUILD_ID), { body: [] });
-      logger.info('Cleared guild commands');
-
-      await rest.put(Routes.applicationCommands(env.CLIENT_ID), { body: [] });
-      logger.info('Cleared global commands');
-
-      logger.info('Development mode: Registering guild commands...');
-      await rest.put(Routes.applicationGuildCommands(env.CLIENT_ID, env.GUILD_ID), { body: commandData });
-      logger.info(`Successfully registered ${commandData.length} guild commands`);
-    } else {
-      await rest.put(Routes.applicationGuildCommands(env.CLIENT_ID, env.GUILD_ID), { body: [] });
-      logger.info('Cleared guild commands');
-
-      logger.info('Production mode: Registering global commands...');
-      await rest.put(Routes.applicationCommands(env.CLIENT_ID), { body: commandData });
-      logger.info(`Successfully registered ${commandData.length} global commands`);
-    }
-
-    logger.info('✅ Logged in and loaded as', user.username);
-  });
 };
