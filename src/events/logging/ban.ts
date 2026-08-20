@@ -1,7 +1,7 @@
 import { db } from '@/db';
 import { bansTable } from '@/db/schema';
 import { BotEvent } from '@/types';
-import { checkUserIsLogged, isUserInGuild } from '@/utils/checks';
+import { checkUserIsLogged } from '@/utils/checks';
 import config from '@/utils/config';
 import { logger } from '@/utils/logger';
 import { AuditLogEvent, EmbedBuilder } from 'discord.js';

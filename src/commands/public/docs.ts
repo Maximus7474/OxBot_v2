@@ -1,4 +1,4 @@
-import { EmbedBuilder, MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '@/types';
 
 const BASE_URL = 'https://overextended.dev/docs/';

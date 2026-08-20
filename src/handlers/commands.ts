@@ -4,8 +4,6 @@ import { fileURLToPath, pathToFileURL } from 'url';
 import { logger } from '@/utils/logger';
 import type { BotClient } from '@/client';
 import type { Command } from '@/types';
-import { env } from '@/env';
-import { REST, Routes } from 'discord.js';
 
 export const loadCommands = async (client: BotClient): Promise<void> => {
   const currentDir = dirname(fileURLToPath(import.meta.url));
