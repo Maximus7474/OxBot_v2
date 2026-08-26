@@ -72,7 +72,7 @@ export default {
             .setTitle('Scam Detected (Member Unbannable)')
             .setDescription(
               `<@${author.id}> posted a flagged scam image but **could not be softbanned** due to role hierarchy.\n` +
-              `**Actions Taken:** Message deleted${targetMember.moderatable ? ' & user timed out' : ''}.`
+                `**Actions Taken:** Message deleted${targetMember.moderatable ? ' & user timed out' : ''}.`,
             )
             .setAuthor({
               name: targetMember.user.tag,
@@ -82,7 +82,9 @@ export default {
             .setFooter({ text: `Member ID: ${author.id}` })
             .setTimestamp();
 
-          await logChannel.send({ embeds: [alertEmbed] }).catch((err) => logger.error('[Anti-Scam] Error sending log:', err));
+          await logChannel
+            .send({ embeds: [alertEmbed] })
+            .catch((err) => logger.error('[Anti-Scam] Error sending log:', err));
         }
         return;
       }
@@ -115,7 +117,9 @@ export default {
           .setFooter({ text: `Member ID: ${author.id}` })
           .setTimestamp();
 
-        await logChannel.send({ embeds: [banEmbed] }).catch((err) => logger.error('[Anti-Scam] Error sending log:', err));
+        await logChannel
+          .send({ embeds: [banEmbed] })
+          .catch((err) => logger.error('[Anti-Scam] Error sending log:', err));
       }
 
       logger.info(`[Anti-Scam] Softbanned compromised user ${author.tag} (${author.id}).`);

@@ -1,10 +1,10 @@
-import { db } from "@/db";
-import { scamImageHashesTable } from "@/db/schema";
-import { Command } from "@/types";
-import { checkUserIsLogged } from "@/utils/checks";
-import { computeAttachmentHash } from "@/utils/images";
-import { logger } from "@/utils/logger";
-import { MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
+import { db } from '@/db';
+import { scamImageHashesTable } from '@/db/schema';
+import { Command } from '@/types';
+import { checkUserIsLogged } from '@/utils/checks';
+import { computeAttachmentHash } from '@/utils/images';
+import { logger } from '@/utils/logger';
+import { MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
 export default {
   data: new SlashCommandBuilder()
@@ -12,7 +12,7 @@ export default {
     .setDescription('Computes and registers an image pHash to the scam database')
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages)
     .addAttachmentOption((o) =>
-      o.setName('image').setDescription('The scam image to hash and register').setRequired(true)
+      o.setName('image').setDescription('The scam image to hash and register').setRequired(true),
     ),
 
   execute: async (interaction, client) => {

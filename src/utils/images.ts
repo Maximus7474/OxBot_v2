@@ -1,6 +1,6 @@
 import imghash from 'imghash';
-import { Attachment } from "discord.js";
-import { logger } from "./logger";
+import { Attachment } from 'discord.js';
+import { logger } from './logger';
 
 const SIMILARITY_THRESHOLD = 5;
 
