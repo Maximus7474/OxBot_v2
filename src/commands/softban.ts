@@ -11,7 +11,6 @@ export default {
     .setDescription('Soft ban a user from the server')
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers)
     .addUserOption((o) => o.setName('user').setDescription('The user to ban').setRequired(true))
-    .addStringOption((o) => o.setName('reason').setDescription('The reason for the ban').setRequired(false))
     .addIntegerOption((o) =>
       o
         .setName('delete_message')
@@ -26,7 +25,8 @@ export default {
           { value: 24 * 3, name: '3 Days' },
           { value: 24 * 7, name: '7 Days' },
         ),
-    ),
+    )
+    .addStringOption((o) => o.setName('reason').setDescription('The reason for the ban').setRequired(false)),
 
   execute: async (interaction, client) => {
     const { guild, options, user: author } = interaction;
@@ -57,6 +57,7 @@ export default {
       await checkUserIsLogged({ client, user: author });
 
       await db.insert(bansTable).values({
+        soft: true,
         reason: reason,
         issuerId: author.id,
         targetId: offender.id,
@@ -72,7 +73,7 @@ export default {
       await interaction.reply({ content: `<@${offender.id}> has been **banned**. Reason: ${reason}` });
 
       setTimeout(async () => {
-        await guild.members.unban(offender.id, `[Softban] By: ${author.username}, reason: ${reason}`);
+        await guild.members.unban(offender.id, `[Softban] Reason: ${reason}`);
       }, 60_000);
 
       logger.info(
