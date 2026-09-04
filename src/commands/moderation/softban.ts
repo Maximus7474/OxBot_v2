@@ -57,6 +57,7 @@ export default {
       await checkUserIsLogged({ client, user: author });
 
       await db.insert(bansTable).values({
+        soft: true,
         reason: reason,
         issuerId: author.id,
         targetId: offender.id,
@@ -72,7 +73,7 @@ export default {
       await interaction.reply({ content: `<@${offender.id}> has been **banned**. Reason: ${reason}` });
 
       setTimeout(async () => {
-        await guild.members.unban(offender.id, `[Softban] By: ${author.username}, reason: ${reason}`);
+        await guild.members.unban(offender.id, `[Softban] Reason: ${reason}`);
       }, 60_000);
 
       logger.info(
